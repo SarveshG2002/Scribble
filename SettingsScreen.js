@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-
+import FormControl from './components/formInput';
 const SettingsScreen = ({ route }) => {
   const { playerName } = route.params;
   const [players, setPlayers] = useState('5');
@@ -19,68 +19,37 @@ const SettingsScreen = ({ route }) => {
         <Text style={styles.headingName}>Hello, {playerName}</Text>
         <Text style={styles.heading}>Select Settings</Text>
 
-        
-        <View style={styles.formControl}>
-          <View style={styles.formControlHeading}>
-            <Text style={styles.HeadingHeading}>Number of Players</Text>
-          </View>
-          <View style={styles.formInputDiv}>
-            <TextInput
-              style={styles.formInput}
-              placeholder="Number of Players"
-              keyboardType="numeric"
-              value={players}
-              onChangeText={setPlayers}
-            />
-          </View>
-        </View>
+        <FormControl style={styles.margin10}
+          placeholder="Number of Players"
+          value={players}
+          onChangeText={setPlayers}
+          keyboardType="numeric"
+        />
 
-        <View style={styles.formControl}>
-          <View style={styles.formControlHeading}>
-            <Text style={styles.HeadingHeading}>Draw Time (seconds)</Text>
-          </View>
-          <View style={styles.formInputDiv}>
-            <TextInput
-              style={styles.formInput}
-              placeholder="Draw Time (seconds)"
-              keyboardType="numeric"
-              value={drawTime}
-              onChangeText={setDrawTime}
-            />
-          </View>
-        </View>
+      <FormControl
+        placeholder="Draw Time (seconds)"
+        value={drawTime}
+        onChangeText={setDrawTime}
+        keyboardType="numeric"
+      />
 
-        <View style={styles.formControl}>
-          <View style={styles.formControlHeading}>
-            <Text style={styles.HeadingHeading}>Rounds</Text>
-          </View>
-          <View style={styles.formInputDiv}>
-            <TextInput
-              style={styles.formInput}
-              placeholder="Rounds"
-              keyboardType="numeric"
-              value={rounds}
-              onChangeText={setRounds}
-            />
-          </View>
-        </View>
+      <FormControl
+        placeholder="Rounds"
+        value={rounds}
+        onChangeText={setRounds}
+        keyboardType="numeric"
+      />
 
-        <View style={styles.formControl}>
-          <View style={styles.formControlHeading}>
-            <Text style={styles.HeadingHeading}>Hints per Draw</Text>
-          </View>
-          <View style={styles.formInputDiv}>
-            <TextInput
-              style={styles.formInput}
-              placeholder="Hints per Draw"
-              keyboardType="numeric"
-              value={hints}
-              onChangeText={setHints}
-            />
-          </View>
-        </View>
+      <FormControl
+        placeholder="Hints per Draw"
+        value={hints}
+        onChangeText={setHints}
+        keyboardType="numeric"
+      />
 
-
+      <TouchableOpacity style={styles.createRoom} >
+                <Text style={styles.buttonText}>Create Room</Text>
+              </TouchableOpacity>
 
         
       </View>
@@ -96,12 +65,12 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     width: "100%",
-    height: "50%",
+    height: "68%",
     borderRadius: 10,
     display: "flex",
     // justifyContent: "center",
     alignItems: "center",
-    marginTop: 200,
+    marginTop: 150,
     paddingTop: 20,
     backgroundColor: "#124da5",
   },
@@ -123,44 +92,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   createRoom: {
-    marginTop: 20,
+    marginTop: 25,
     backgroundColor: "#2D9CDB",
     padding: 10,
     borderRadius: 10,
   },
-  formControl: {
-    width: '80%',
-    // padding:5,
-    display: "flex",
-    alignItems: "center",
-    // textAlign: 'right',
-    // backgroundColor: 'red',
-  },
-  formControlHeading: {
-    width: '100%',
-    display: 'flex',
-    // paddingRight: '20',
-    // paddingRight: 20,
-  },
-  formInputDiv: {
-    width: '100%',
-    display: 'flex',
-    alignItems: "center",
-
-  },
-  formInput: {
-    width: '100%',
-    padding: 10,
-    borderColor: 'gray',
-    borderWidth: 1,
-    backgroundColor: 'white',
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  HeadingHeading: {
-    color: 'white',
-    fontSize: 20,
-
+  margin10:{
+    marginTop:'10',
+    width: '50%',
+    // backgroundColor:'red',
   },
   buttonText: {
     color: "white",
