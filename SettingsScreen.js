@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
-const SettingsScreen = () => {
+const SettingsScreen = ({ route }) => {
+  const { playerName } = route.params;
   const [players, setPlayers] = useState('5');
   const [drawTime, setDrawTime] = useState('80');
   const [rounds, setRounds] = useState('3');
@@ -14,43 +15,75 @@ const SettingsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Game Settings</Text>
+      <View style={styles.loginContainer}>
+        <Text style={styles.headingName}>Hello, {playerName}</Text>
+        <Text style={styles.heading}>Select Settings</Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Number of Players"
-        keyboardType="numeric"
-        value={players}
-        onChangeText={setPlayers}
-      />
+        
+        <View style={styles.formControl}>
+          <View style={styles.formControlHeading}>
+            <Text style={styles.HeadingHeading}>Number of Players</Text>
+          </View>
+          <View style={styles.formInputDiv}>
+            <TextInput
+              style={styles.formInput}
+              placeholder="Number of Players"
+              keyboardType="numeric"
+              value={players}
+              onChangeText={setPlayers}
+            />
+          </View>
+        </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Draw Time (seconds)"
-        keyboardType="numeric"
-        value={drawTime}
-        onChangeText={setDrawTime}
-      />
+        <View style={styles.formControl}>
+          <View style={styles.formControlHeading}>
+            <Text style={styles.HeadingHeading}>Draw Time (seconds)</Text>
+          </View>
+          <View style={styles.formInputDiv}>
+            <TextInput
+              style={styles.formInput}
+              placeholder="Draw Time (seconds)"
+              keyboardType="numeric"
+              value={drawTime}
+              onChangeText={setDrawTime}
+            />
+          </View>
+        </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Rounds"
-        keyboardType="numeric"
-        value={rounds}
-        onChangeText={setRounds}
-      />
+        <View style={styles.formControl}>
+          <View style={styles.formControlHeading}>
+            <Text style={styles.HeadingHeading}>Rounds</Text>
+          </View>
+          <View style={styles.formInputDiv}>
+            <TextInput
+              style={styles.formInput}
+              placeholder="Rounds"
+              keyboardType="numeric"
+              value={rounds}
+              onChangeText={setRounds}
+            />
+          </View>
+        </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Hints per Draw"
-        keyboardType="numeric"
-        value={hints}
-        onChangeText={setHints}
-      />
+        <View style={styles.formControl}>
+          <View style={styles.formControlHeading}>
+            <Text style={styles.HeadingHeading}>Hints per Draw</Text>
+          </View>
+          <View style={styles.formInputDiv}>
+            <TextInput
+              style={styles.formInput}
+              placeholder="Hints per Draw"
+              keyboardType="numeric"
+              value={hints}
+              onChangeText={setHints}
+            />
+          </View>
+        </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleCreateRoom}>
-        <Text style={styles.buttonText}>Create Room</Text>
-      </TouchableOpacity>
+
+
+        
+      </View>
     </View>
   );
 };
@@ -59,35 +92,80 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     backgroundColor: '#2D9CDB',
-    height: '100%',
-    justifyContent: 'center',
+    height: "100%",
   },
-  heading: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 20,
-    textAlign: 'center',
+  loginContainer: {
+    width: "100%",
+    height: "50%",
+    borderRadius: 10,
+    display: "flex",
+    // justifyContent: "center",
+    alignItems: "center",
+    marginTop: 200,
+    paddingTop: 20,
+    backgroundColor: "#124da5",
   },
   input: {
     width: '80%',
     padding: 10,
-    marginBottom: 10,
     borderColor: 'gray',
     borderWidth: 1,
     backgroundColor: 'white',
     borderRadius: 5,
+    marginTop: 10,
   },
-  button: {
-    backgroundColor: '#2D9CDB',
+  headingName: {
+    color: 'white',
+    fontSize: 30,
+  },
+  heading: {
+    color: 'white',
+    fontSize: 20,
+  },
+  createRoom: {
+    marginTop: 20,
+    backgroundColor: "#2D9CDB",
     padding: 10,
     borderRadius: 10,
-    marginTop: 20,
+  },
+  formControl: {
+    width: '80%',
+    // padding:5,
+    display: "flex",
+    alignItems: "center",
+    // textAlign: 'right',
+    // backgroundColor: 'red',
+  },
+  formControlHeading: {
+    width: '100%',
+    display: 'flex',
+    // paddingRight: '20',
+    // paddingRight: 20,
+  },
+  formInputDiv: {
+    width: '100%',
+    display: 'flex',
+    alignItems: "center",
+
+  },
+  formInput: {
+    width: '100%',
+    padding: 10,
+    borderColor: 'gray',
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  HeadingHeading: {
+    color: 'white',
+    fontSize: 20,
+
   },
   buttonText: {
-    color: 'white',
-    textAlign: 'center',
+    color: "white",
   },
+
 });
 
 export default SettingsScreen;

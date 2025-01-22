@@ -51,7 +51,7 @@ export default function App() {
   }
 
   const handlePress = () => {
-    navigation.navigate('Settings');
+    navigation.navigate('Settings', { playerName: text });  // Pass the player name as a parameter
   };
 
   return (
