@@ -1,17 +1,54 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import FormControl from './components/formInput';
+import avatars from './components/avatar';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// import RNFS from 'react-native-fs';
+
 const SettingsScreen = ({ route }) => {
-  const { playerName } = route.params;
+  const { playerName,avatarId } = route.params;
   const [players, setPlayers] = useState('5');
   const [drawTime, setDrawTime] = useState('80');
   const [rounds, setRounds] = useState('3');
   const [hints, setHints] = useState('2');
-
-  const handleCreateRoom = () => {
+  const navigation = useNavigation();
+  const handleCreateRoom = async () => {
     // Handle the create room action here
-    console.log("Room created with settings:", { players, drawTime, rounds, hints });
+    // console.log("Room created with settings:", { players, drawTime, rounds, hints });
+    const newRoom = {
+      roomId: Date.now(),
+      total_players: players,
+      draw_time: drawTime,
+      rounds,
+      hints,
+      players:[
+        {
+          player_name:playerName,
+          "player_avatar":avatarId
+        }
+      ],
+      created_at: new Date().toISOString(),
+    };
+    try {
+      // Fetch existing rooms
+      const storedData = await AsyncStorage.getItem('gameRooms');
+      let rooms = storedData ? JSON.parse(storedData) : [];
+      
+      console.log("existing rooms",rooms)
+      // Add new room
+      rooms = [];
+      rooms.push(newRoom);
+      
+      // Save updated rooms
+      await AsyncStorage.setItem('gameRooms', JSON.stringify(rooms));
+      navigation.navigate('Host');
+      console.log('Room created and saved:', newRoom);
+    } catch (error) {
+      console.error('Error saving room:', error);
+    }
   };
+
 
   return (
     <View style={styles.container}>
@@ -47,7 +84,7 @@ const SettingsScreen = ({ route }) => {
         keyboardType="numeric"
       />
 
-      <TouchableOpacity style={styles.createRoom} >
+      <TouchableOpacity style={styles.createRoom} onPress={handleCreateRoom}>
                 <Text style={styles.buttonText}>Create Room</Text>
               </TouchableOpacity>
 
